@@ -3,7 +3,6 @@
 ################################
 # Create SMB user.
 # Globals:
-#   - TM_USERNAME
 #   - PASSWORD
 # Arguments:
 #   None
@@ -13,11 +12,14 @@
 function samba_user_create
 {
     info "Create SMB user"
-    smbpasswd -L -a -n "${TM_USERNAME}"
+    smbpasswd -L -a -n timemachine
 
     info "Enable SMB user"
-    smbpasswd -L -e -n "${TM_USERNAME}"
+    smbpasswd -L -e -n timemachine
+
+    local password=$(cat /var/run/secrets/password)
+    readonly password
 
     info "Set SMB user pass"
-    printf "%s\n%s\n" "${PASSWORD}" "${PASSWORD}" | smbpasswd -L -s "${TM_USERNAME}"
+    printf "%s\n%s\n" "${password}" "${password}" | smbpasswd -L -s timemachine
 }

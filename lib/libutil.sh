@@ -50,24 +50,17 @@ function cleanup
 }
 
 ################################
-# Create timemachine user.
+# Set timemachine user password.
 # Globals:
-#   - TM_UID
-#   - TM_GID
-#   - TM_USERNAME
-#   - TM_GROUPNAME
-#   - PASSWORD
+#   None
 # Arguments:
 #   None
 # Returns:
 #   None
 ################################
-function create_user
+function set_passwrd
 {
-    info "Create user"
-    addgroup -g "${TM_GID}" "${TM_GROUPNAME}"
-    adduser -u "${TM_UID}" -G "${TM_GROUPNAME}" -h "/opt/${TM_USERNAME}" -s /bin/false -D "${TM_USERNAME}"
-
     info "Set password"
-    echo "${TM_USERNAME}":"${PASSWORD}" | chpasswd
+
+    echo "timemachine:$(cat /var/run/secrets/password)" | chpasswd
 }

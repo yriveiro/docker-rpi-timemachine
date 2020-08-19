@@ -9,7 +9,6 @@
 #   - ${MIMIC_MODEL}
 #   - ${SHARE_NAME}
 #   - ${VOLUME_SIZE_LIMIT}
-#   - ${TM_USERNAME}
 # Arguments:
 #   None
 # Returns:
@@ -37,8 +36,8 @@ function smb_cnf
    fruit:aapl = yes
    fruit:time machine = yes
    fruit:time machine max size = ${VOLUME_SIZE_LIMIT}
-   path = /opt/${TM_USERNAME}
-   valid users = ${TM_USERNAME}
+   path = /opt/timemachine
+   valid users = timemachine
    browseable = yes
    writable = yes
    vfs objects = catia fruit streams_xattr"
