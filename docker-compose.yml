@@ -2,8 +2,6 @@ version: "3"
 services:
   timemachine:
     network_mode: "host"
-    env_file:
-      - .env
     restart: unless-stopped
     ports:
       - "137:137/udp"
@@ -15,5 +13,7 @@ services:
       nofile:
         soft: 65536
         hard: 65536
-    container_name: timemachine
+    container_name: rpi-timemachine
     image: yriveiro/timemachine:1.0.0
+    env_file:
+      - timemachine.env

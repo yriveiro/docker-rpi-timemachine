@@ -1,11 +1,19 @@
 # syntax=docker/dockerfile:experimental
-FROM arm32v7/alpine:edge
+FROM arm32v7/alpine:3
 LABEL maintainer="yago.riveiro@gmail.com"
 
 ADD https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-arm.tar.gz /tmp/s6-overlay-arm.tar.gz
 
+ENV DEBUG=${DEBUG:-0}
 ENV UID=${UID:-1000}
 ENV GID=${GID:-1000}
+ENV MIMIC_MODEL=${MIMIC_MODEL:-TimeCapsule8,119}
+ENV SHARE_NAME=${SHARE_NAME:-"time-machine-rpi"}
+ENV SMB_PORT=${SMB_PORT:-445}
+ENV VOLUME_SIZE_LIMIT=${VOLUME_SIZE_LIMIT:-400G}
+ENV HIDE_SHARES=${HIDE_SHARES:-no}
+ENV WORKGROUP=${WORKGROUP:-WORKGROUP}
+
 
 RUN addgroup -g "${GID}" timemachine && \
     adduser -u "${UID}" -G timemachine -h "/opt/timemachine" -s /bin/false \
@@ -38,7 +46,7 @@ COPY s6 /etc/s6/services
 COPY lib/ /usr/local/lib/timemachine/
 COPY start_up.sh /start_up.sh
 
-RUN --mount=type=secret,id=password cat /run/secrets/password
-RUN bash -c "/start_up.sh"
+RUN --mount=type=secret,id=password cat /var/run/secrets/password
+RUN /start_up.sh
 
 ENTRYPOINT ["/init"]
