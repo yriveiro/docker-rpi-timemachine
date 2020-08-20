@@ -2,6 +2,15 @@
 
 macOS Time Machine on docker over SMB protocol built to run on a Raspberry pi.
 
+# TL;DR
+
+Edit `docker-compose.yml` file and replace `<your host path>` with the path
+where you want to save the Time Machine data, save it and run:
+
+```sh
+docker-compose up -d
+```
+
 # Use
 
 This Docker is intent to work with the minimal configuration needed.
@@ -33,7 +42,8 @@ services:
 
 You can tweak other params in the timemachine.env file. The configuration was
 thought with sanity defaults in mind and probably the only param you should
-change is the `VOLUME_SIZE_LIMIT` if you want to limit the size of the SMB share, ex: 400G.
+change is the `VOLUME_SIZE_LIMIT` if you want to limit the size of the SMB
+share for example 400G.
 
 # License
 
