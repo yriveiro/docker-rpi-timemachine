@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:experimental
 FROM arm32v7/alpine:3
 LABEL maintainer="yago.riveiro@gmail.com"
 

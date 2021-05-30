@@ -1,6 +1,7 @@
 version: "3"
 services:
   timemachine:
+    build: "./Dockerfile"
     network_mode: "host"
     restart: unless-stopped
     ports:
